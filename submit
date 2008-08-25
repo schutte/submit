@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# This file is part of submit, a sendmail replacement or supplement for
+# multi-user desktop systems.
+#
+# Copyright © 2008 Michael Schutte <michi@uiae.at>
+#
+# submit is available under the terms of the MIT/X license.  Please see the
+# file COPYING for details.
+
+import sys
+import os
+
+# remove this for packaging (sed: /^# remove this/,/^$/d)
+libdir = os.path.join(os.path.realpath(os.path.dirname(sys.argv[0])), "lib")
+if os.path.isdir(libdir):
+    sys.path.insert(0, libdir)
+
+from submit.frontend import *
+from submit.i18n import *
+
+USAGE = n_(
+"""Usage: submit [OPTIONS] [RECIPIENT ...]
+
+Deliver the message passed on stdin according to ~/.submit/config.
+
+Supported options:
+    -C FILE         Override the location of the config directory.
+    --daemon        Only start a daemon process; do not deliver anything.
+    --shutdown      Terminate the daemon process and exit.
+    --unlock METHOD Ask for the necessary passwords to send mail using the
+                    specified METHOD.  "--unlock all" unlocks all methods.
+                    Do not deliver anything.
+    -f/-r ADDRESS   Set the envelope sender address.
+    -i/-oi          Don't treat a line containing nothing but a period as EOF.
+    -t              Parse recipient addresses from the message body and add
+                    them to the list of recipients.
+    --version       Show the version of submit and exit.
+    --help          Show this text and exit.
+
+There are some additional options which are ignored for sendmail
+compatibility; see the manual page for the full list.
+
+Please report bugs to <submit@uiae.at>."""
+)
+
+init_i18n()
+Frontend(USAGE).run()
+
+# vim:tw=78:fo-=t:sw=4:sts=4:et:

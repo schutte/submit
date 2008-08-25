@@ -1,0 +1,99 @@
+submit(1)
+=========
+Michael Schutte <michi@uiae.at>
+
+NAME
+----
+
+submit - sendmail replacement for multi-user desktops
+
+SYNOPSIS
+--------
+
+*submit* ['OPTIONS'] 'RECIPIENTS'
+
+DESCRIPTION
+-----------
+
+submit(1) reads a mail from its standard input and delivers it to the
+given 'RECIPIENTS' (a list of mail addresses).  The interface is
+compatible to that of sendmail(1), meaning that it should be possible to
+use submit(1) wherever sendmail(1) can be used.
+
+OPTIONS
+-------
+
+*--daemon, -bd*::
+	Fork a daemon process and exit.
+
+*--shutdown*::
+	Kill the daemon process and exit.  Do nothing if the daemon
+	isn’t running.
+
+*--unlock 'METHOD'*::
+	Ask for all necessary passwords to deliver mails using 'METHOD'
+	(as defined in `~/.submit/config`) and exit.  'METHOD' can be
+	the special value 'all', which will ask you to supply the
+	passwords for all delivery methods.
+
+*-C 'DIRECTORY'*::
+	Read the `config` file from the given 'DIRECTORY' instead of
+	`~/.submit`.
+
+*-f, -r 'ADDRESS'*::
+	Specify an explicit envelope sender address.  If this option is
+	not given, the address is taken from the header of the mail.
+
+*-i, -oi*::
+	Do not treat a line containing only a period as the end of the
+	message.
+
+*-t*::
+	Parse the message body and add the addresses from the To:, Cc:
+	and Bcc: headers to the list of recipients.
+
+*--help*::
+	Show a short message on how to use submit(1).
+
+*--version*::
+	Show the version number of submit(1) and its library.
+
+IGNORED OPTIONS
+---------------
+
+The options *-A*, *-b*, *-F*, *-G*, *-h*, *-L*, *-m*, *-n*, *-N*, *-o*,
+*-R*, *-U*, and *-X* are ignored for sendmail(1) compatibility.
+
+EXIT STATUS
+-----------
+
+*0*:: Success.
+*1*:: The delivery process failed.
+*2*:: Incorrect command-line usage.
+
+LIMITATIONS
+-----------
+
+submit(1) cannot deliver mails to remote mailboxes without the
+assistance of SMTP relay servers.  This is intentional; support for
+direct delivery to mail servers will not be added.  Please see
+http://www.spamhaus.org/pbl/ for the rationale behind this decision.
+
+BUGS
+----
+
+Please report bugs to <submit@uiae.at>.
+
+AUTHOR
+------
+
+Copyright © 2008 Michael Schutte <michi@uiae.at>.
+
+HOMEPAGE
+--------
+
+ - Homepage: http://uiae.at/~michi/projects/submit/
+ - User’s manual: http://uiae.at/~michi/projects/submit/manual.html
+ - Source: http://github.com/schutte/submit/
+
+// vim:ft=asciidoc:tw=72:

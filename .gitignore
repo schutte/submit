@@ -1,0 +1,4 @@
+*.pyc
+manual/*.html
+manual/*.1
+manual/*.xml

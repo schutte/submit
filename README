@@ -1,0 +1,76 @@
+	=======================================================
+	 submit — sendmail replacement for multi-user desktops
+	=======================================================
+
+Introduction
+------------
+
+submit is a replacement or supplement implementation of the sendmail
+command line interface for multi-user Unix systems.  It moves the
+configuration of non-local mail delivery away from system administrators
+and towards the individual users while still being able to interface
+with sendmail programs provided by mail transfer agents such as the
+original Sendmail, Postfix or Exim.  Notable features are:
+
+ * Synchronous delivery:  When submit returns successfully, you can be
+   sure that your mail is out.
+ * Supports SMTP and Sendmail transports.
+ * SSL/TLS support, including CA- and fingerprint-based validation
+   of the server’s identity and certificate-based authentication.
+ * Pluggable interfaces (currently GTK+ and TTY) for authentication.
+ * Optional daemon process storing SMTP passwords and passphrases to
+   private keys.
+
+Mail user agents that work fine with submit include Mutt, Pine/Alpine,
+Evolution and KMail.  Sylpheed/Claws Mail and Thunderbird/Icedove have
+been determined not to be usable.
+
+Installation
+------------
+
+If your distribution provides submit packages, please use them.  They
+know how to deal with overriding the default sendmail program shipped
+with your mail transport agent.
+
+If you have to manually install submit, please become root and type
+
+	# python setup.py install
+
+to install the submit libraries as a site-local package for Python and
+the submit binary to /usr/bin.  You can now either reconfigure your
+programs to use /usr/bin/submit instead of /usr/{lib,sbin}/sendmail, or
+figure out how your distribution handles custom replacements of files
+normally shipped with stock packages.  See the submit manual, section
+“Installation”, for some pointers.
+
+WARNING: Never install submit as /usr/{lib,sbin}/sendmail!  This will
+	 inevitably lead to submit calling itself over and over when
+	 trying to deliver local mails.  Symlinking /usr/bin/submit to
+	 /usr/{lib,sbin}/sendmail is safe, though.
+
+Basic Configuration
+-------------------
+
+To make submit deliver mails to SMTP relays, create a ~/.submit
+directory and place a file named “config” in there:
+
+	# ~/.submit/config example file
+	[method remote]
+	type = smtp
+	host = mail.example.com		# replace this
+	username = your_user_name	# replace this
+	starttls = on			# use Transport Layer Security
+
+This should do for many free mail providers.
+
+Further Information
+-------------------
+
+For details about submit, please refer to the submit user manual at
+<http://uiae.at/~michi/projects/submit/manual.html>.
+
+Report bugs to <submit@uiae.at>.
+
+ -- Michael Schutte <michi@uiae.at>  Sun, 24 Aug 2008 12:47:28 +0200
+
+vim:tw=72:
