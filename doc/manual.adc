@@ -7,7 +7,18 @@ command line interface for multi-user Unix systems.  It moves the
 configuration of non-local mail delivery away from system administrators
 and towards the individual users while still being able to interface
 with 'sendmail' programs provided by mail transfer agents such as the
-original 'Sendmail', 'Postfix' or 'Exim'.
+original 'Sendmail', 'Postfix' or 'Exim'.  Notable features are:
+
+ * Synchronous delivery:  When submit returns successfully, you can be
+   sure that your mail is out.
+ * Supports SMTP and Sendmail transports.
+ * SSL/TLS support, including CA- and fingerprint-based validation
+   of the server’s identity and certificate-based authentication.
+ * Pluggable interfaces (currently GTK+ and TTY) for authentication.
+ * Optional daemon process storing SMTP passwords and passphrases to
+   private keys.
+ * Optional support for different delivery methods depending on the
+   sender address selected in the mail client.
 
 [[introduction]]
 Introduction
@@ -19,16 +30,7 @@ systems like GNU/Linux or BSD.  It is a program, usually located in
 send messages.  These are usually sent on to a daemon process running on
 the local machine, the so-called “mailer daemon,” which then either
 directly stores the messages in a local user’s spool file or passes it
-on to an Internet server for further processing.  Notable features are:
-
- * Synchronous delivery:  When submit returns successfully, you can be
-   sure that your mail is out.
- * Supports SMTP and Sendmail transports.
- * SSL/TLS support, including CA- and fingerprint-based validation
-   of the server’s identity and certificate-based authentication.
- * Pluggable interfaces (currently GTK+ and TTY) for authentication.
- * Optional daemon process storing SMTP passwords and passphrases to
-   private keys.
+on to an Internet server for further processing.
 
 While this approach has the advantage of allowing for a central place to
 configure the mail delivery rules for a whole system, it has its

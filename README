@@ -20,6 +20,8 @@ original Sendmail, Postfix or Exim.  Notable features are:
  * Pluggable interfaces (currently GTK+ and TTY) for authentication.
  * Optional daemon process storing SMTP passwords and passphrases to
    private keys.
+ * Optional support for different delivery methods depending on the
+   sender address selected in the mail client.
 
 Mail user agents that work fine with submit include Mutt, Pine/Alpine,
 Evolution and KMail.  Sylpheed/Claws Mail and Thunderbird/Icedove have
