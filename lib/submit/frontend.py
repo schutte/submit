@@ -119,7 +119,9 @@ class Frontend:
                     self.period_eof = False
                 elif opt == "-t":
                     self.parse_rcpts = True
-                elif opt in ("-G", "-m", "-n", "-q", "-U"):
+                elif opt == "-q":
+                    sys.exit(0)
+                elif opt in ("-G", "-m", "-n", "-U"):
                     # ignore these options
                     pass
                 elif opt[:2] in ("-A", "-b", "-F", "-h", "-L", "-N", "-R",

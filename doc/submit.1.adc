@@ -62,7 +62,10 @@ IGNORED OPTIONS
 ---------------
 
 The options *-A*, *-b*, *-F*, *-G*, *-h*, *-L*, *-m*, *-n*, *-N*, *-o*,
-*-q*, *-R*, *-U*, and *-X* are ignored for sendmail(1) compatibility.
+*-R*, *-U*, and *-X* are ignored for sendmail(1) compatibility.
+
+The option *-q*, which normally flushes the queue of the mailer daemon,
+is a no-op.
 
 EXIT STATUS
 -----------
