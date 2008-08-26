@@ -238,16 +238,19 @@ Configuration
 __submit__’s default per-user configuration file is `~/.submit/config`.
 Its general structure looks as follows:
 
---------------------------
+----------------------------
 [general]
 # global settings
 
 [method local]
-# local delivery sections
+# local delivery settings
+
+[method your_custom_section]
+# another delivery settings
 
 [method remote]
-# remote delivery sections
---------------------------
+# remote delivery settings
+----------------------------
 
 All of these sections can be omitted if you are fine with the defaults.
 Empty lines and lines starting with `#` are ignored.  Each setting is a
@@ -259,6 +262,13 @@ latter case, they are searched for in `~/.submit`.
 [[global-settings]]
 Global Settings
 ~~~~~~~~~~~~~~~
+
+**default_from** (string, default: your local mail address)::
+	The “From:” header to append if there is none.  This is very
+	useful together with command line mail clients like 'mailx' (as
+	in the usual one-liners like `echo subscribe example-list |
+	mailx majordomo@example.com` to conveniently subscribe to a
+	mailing list).
 
 **expire** (number; default: '60')::
 	Specifies how many minutes the submit daemon process should
@@ -287,17 +297,35 @@ Global Settings
 Delivery Settings
 ~~~~~~~~~~~~~~~~~
 
-**domains** (string, default: 'localhost, your-hostname')::
-	In the 'method local' section:  Comma-separated list of domains
-	to be considered local.  In the 'method remote' section:
-	Ignored.
+When delivering mails, all sections starting with the word `method` will
+be matched against the “From:” address of the message and its list of
+recipients.  More than one delivery method can match.  For example, if
+you send an e-mail to 'john, $$jane@localhost$$, $$alice@example.com$$,
+$$bob@example.net$$' in the default configuration, the message will go
+through the 'local' section for John and Jane, and through 'remote' for
+Alice and Bob.
+
+'local' is always tried first to collect all local addresses, 'remote'
+is checked last and acts as a fallback for all unmatched recipients.
+
+**domains** (string, default: empty)::
+	If non-empty, this comma-separated list of domains specifies
+	which target domains are handled by this delivery section.  In
+	the 'method local' section:  Defaults to 'localhost' and your
+	hostname.  In the 'method remote' section: Ignored.
 
 **extra_domains** (string, default: empty)::
 	In the 'method local' section:  Comma-separated list of
 	additional domains to be considered local.  Use this if you want
 	to add local domains to those automatically determined if you do
-	not explicitely set *domains*.  In the 'method remote' section:
-	Ignored.
+	not explicitly set *domains*.  In all other sections: Ignored.
+
+**from** (string, default: empty)::
+	If non-empty, only mails with the specified “From:” addresses
+	(comma-separated list) will be considered by this delivery
+	method.  Addresses can start with an at sign to match a whole
+	domain.  See the <<examples,Examples>> section for a typical
+	usage example.  In the 'method remote' section: Ignored.
 
 **type** (string, default: 'sendmail')::
 	The deliverer to use.  This can be one of 'smtp', 'smtps' or
@@ -382,6 +410,55 @@ setting, but deprecated.  If you do not need to use this, please go with
 The options for 'smtps' are the same as for 'smtp'.  The only two
 differences are that the default value for the 'port' option is '465'
 instead of '25', and that there is no 'starttls' option.
+
+[[examples]]
+Examples
+~~~~~~~~
+
+[[complete-example]]
+A Complete Example
+^^^^^^^^^^^^^^^^^^
+
+This is the configuration file used by the author.  He wants to send his
+mails through his SMTP server at 'uiae.at' by default, where he
+authenticates himself using his TLS private key in '~/.submit/uiae.key'.
+When he sends messages from his old Gmail address, he has to use
+Google’s servers instead.
+
+-------------------------------------------------------------------------
+[general]
+default_from = michi@uiae.at
+
+[method gmail]
+from = @gmail.com, @googlemail.com
+type = smtp
+host = smtp.googlemail.com
+starttls = on
+username = m.schutte.jr@gmail.com
+
+[method remote]
+type = smtp
+host = uiae.at
+starttls = on
+fingerprint = c9:58:6c:bf:b0:96:7f:9e:60:9c:01:7c:6e:3c:50:1d:0f:0a:b0:24
+ca = cacert.crt
+key = uiae.key
+cert = uiae.crt
+-------------------------------------------------------------------------
+
+[[ssh-sendmail]]
+Calling Sendmail Remotely Over SSH
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is another way how the author could use 'submit':  This 'remote'
+delivery method connects to his mail server and feeds the message to the
+`/usr/sbin/sendmail` binary provided by the Postfix installation.
+
+----------------------------------------
+[method remote]
+type = sendmail
+program = ssh uiae.at /usr/sbin/sendmail
+----------------------------------------
 
 [[references]]
 References

@@ -199,7 +199,8 @@ check your installation."""
             if line.rstrip("\r\n") == "." and self.period_eof: break
             body.write(line)
         body = body.getvalue()
-        return Message(body, self.recipients, self.envelope_from, self.parse_rcpts)
+        return Message(self.config, body, self.recipients, self.parse_rcpts,
+                self.envelope_from)
 
     def deliver(self, message):
         """Try to send the given message by either communicating with the

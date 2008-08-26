@@ -221,7 +221,7 @@ class SMTPDeliverer(AbstractDeliverer):
             err(self.conn.mail(message.efrom))
             for rcpt in rcpts:
                 err(self.conn.rcpt(rcpt))
-            err(self.conn.data(message.body))
+            err(self.conn.data(message.get_body()))
             self.close()
 
         except (socket.error, smtplib.SMTPException), e:

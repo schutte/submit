@@ -21,7 +21,7 @@ class Message:
     """A message handled by submit, composed of a body, some recipient
     addresses and an envelope sender address."""
 
-    def __init__(self, body, rcpts, efrom = None, parse_rcpts = False):
+    def __init__(self, config, body, rcpts, parse_rcpts = False, efrom = None):
         """Create a new message to the given recipients containing the text
         given in `body`.  If no envelope sender address is passed in `efrom`,
         it is guessed from the message body.  If `parse_rcpts` is true, the
@@ -32,39 +32,47 @@ class Message:
             if addr:
                 self.rcpts.add(addr)
 
-        message = email.message_from_string(self.received() + body)
+        self.message = email.message_from_string(self.received() + body)
+
         if efrom is None:
-            self.efrom = self.guess_envelope_from(message)
+            if not self.message.has_key("from"):
+                default_from = config.get_general(str, "default_from")
+                if default_from:
+                    self.message["From"] = default_from
+            self.efrom = self.guess_envelope_from()
         else:
             self.efrom = efrom
+
+        if not self.message.has_key("from"):
+            self.message["From"] = self.efrom
+
         if parse_rcpts:
-            self.add_recipient_addresses(message)
-        del message["bcc"]
-        self.body = message.as_string(False)
+            self.add_recipient_addresses()
+        del self.message["bcc"]
 
     def received(self):
         """Return a Received: header."""
         return "Received: by %s (submit); %s\n" % (socket.gethostname(),
                 email.utils.formatdate())
 
-    def guess_envelope_from(self, message):
+    def guess_envelope_from(self):
         """Try to guess the envelope sender address to be used for mail
         submission.  First check the message body for a From: line.  If there
         is none, use the name of the submitting user and append an at sign and
         the contents of /etc/mailname (or the output of hostname, if this file
         is missing too)."""
-        if message.has_key("from"):
-            return email.utils.parseaddr(message["from"])[1]
+        if self.message.has_key("from"):
+            return email.utils.parseaddr(self.message["from"])[1]
 
         username = pwd.getpwuid(os.getuid())[0]
         mailname = default_mailname()
         return "%s@%s" % (username, mailname)
 
-    def add_recipient_addresses(self, message):
+    def add_recipient_addresses(self):
         """Add the addresses from the To:, Cc: and Bcc: fields to the set of
         recipients."""
         for header in ("to", "cc", "bcc"):
-            rcpts = email.utils.getaddresses(message.get_all(header, []))
+            rcpts = email.utils.getaddresses(self.message.get_all(header, []))
             for name, addr in rcpts:
                 if addr: self.rcpts.add(addr)
 
@@ -76,18 +84,35 @@ class Message:
         methods.insert(0, "local")
         methods.append("remote")
 
+        dummy, fromaddr = email.utils.parseaddr(self.message["from"])
         # (domain, method) mappings
         dom_meth = []
         for method in methods:
+            # skip the method if its “from” option is set and doesn’t match
+            # the From: header of this message
+            onlyfroms = config.get_method(str, method, "from")
+            if onlyfroms:
+                onlyfroms = onlyfroms.split(",")
+                for onlyfrom in onlyfroms:
+                    onlyfrom = onlyfrom.strip()
+                    if onlyfrom.startswith("@"):
+                        if fromaddr.endswith(onlyfrom):
+                            break
+                    else:
+                        if fromaddr == onlyfrom:
+                            break
+                else:
+                    continue
+
             if method == "local":
                 domains = self.get_local_domains(config)
             else:
                 domains = config.get_method(str, method, "domains")
-                if not domains: continue
-                domains = self.parse_domains(domains)
+                if not domains: domains = [None]
+                else: domains = self.parse_domains(domains)
 
             for domain in domains:
-                dom_meth.append(("@" + domain, method))
+                dom_meth.append((domain, method))
 
         # (method, recipients) mappings
         # initialize as {meth1: [], meth2: [], …}
@@ -99,7 +124,7 @@ class Message:
                 continue
             # else, look for an appropriate mapping
             for domain, method in dom_meth:
-                if rcpt.endswith(domain):
+                if domain is None or rcpt.endswith("@" + domain):
                     meth_rcpt[method].append(rcpt)
                     break
             # if there is none, go with remote
@@ -144,6 +169,10 @@ class Message:
         extracted from the configuration file."""
         return set(map(str.strip, domains.split(",")))
 
+    def get_body(self):
+        """Return the body of the message as a string."""
+        return self.message.as_string(False)
+
 def default_mailname():
     """Determine the default mailname by reading /etc/mailname or using the
     hostname."""
@@ -155,7 +184,7 @@ def default_mailname():
         if fin: fin.close()
 
     if not mailname:
-        return socket.gethostname()
+        return socket.getfqdn()
     else:
         return mailname
 

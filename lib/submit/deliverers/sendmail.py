@@ -47,7 +47,7 @@ class SendmailDeliverer(AbstractDeliverer):
         cmd = sendmail + args + ["-f", message.efrom] + rcpts
         proc = subprocess.Popen(cmd,
                 stdin = subprocess.PIPE, stderr = subprocess.PIPE)
-        proc.stdin.write(message.body)
+        proc.stdin.write(message.get_body())
         proc.stdin.close()
 
         if proc.wait() != 0:
