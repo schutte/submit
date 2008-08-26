@@ -469,6 +469,9 @@ References
  * Interface of the original
    http://www.freebsd.org/cgi/man.cgi?query=sendmail&sektion=8:['sendmail']
    implementation
+ * Similar projects: http://msmtp.sourceforge.net/[msmtp],
+   http://untroubled.org/nullmailer/[nullmailer],
+   http://putmail.sourceforge.net/[putmail]
 
 [[author]]
 Author
