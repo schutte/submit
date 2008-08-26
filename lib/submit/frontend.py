@@ -196,7 +196,10 @@ check your installation."""
         """Read the message from stdin."""
         body = StringIO()
         while True:
-            line = sys.stdin.readline()
+            try:
+                line = sys.stdin.readline()
+            except KeyboardInterrupt:
+                sys.exit(1)
             if line == "": break
             if line.rstrip("\r\n") == "." and self.period_eof: break
             body.write(line)
