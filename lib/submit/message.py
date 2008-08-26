@@ -14,6 +14,7 @@ import re
 import socket
 import email
 import email.utils
+import email.parser
 
 __all__ = ["Message"]
 
@@ -32,7 +33,8 @@ class Message:
             if addr:
                 self.rcpts.add(addr)
 
-        self.message = email.message_from_string(self.received() + body)
+        parser = email.parser.Parser()
+        self.message = parser.parsestr(self.received() + body, True)
 
         if efrom is None:
             if not self.message.has_key("from"):
