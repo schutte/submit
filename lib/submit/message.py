@@ -49,7 +49,8 @@ class Message:
 
         if parse_rcpts:
             self.add_recipient_addresses()
-        del self.message["bcc"]
+
+        self.fix_headers()
 
     def received(self):
         """Return a Received: header."""
@@ -76,6 +77,15 @@ class Message:
             rcpts = email.utils.getaddresses(self.message.get_all(header, []))
             for name, addr in rcpts:
                 if addr: self.rcpts.add(addr)
+
+    def fix_headers(self):
+        """Remove all Bcc: headers, add Date: and Message-ID: headers if they
+        are missing."""
+        del self.message["bcc"]
+        if not self.message.has_key("message-id"):
+            self.message["Message-ID"] = email.utils.make_msgid()
+        if not self.message.has_key("date"):
+            self.message["Date"] = email.utils.formatdate()
 
     def get_delivery_methods(self, config):
         """Return (name, addresses) tuples of the config sections that apply
