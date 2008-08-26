@@ -49,13 +49,15 @@ class GNOMEInterface(GTKInterface):
                     pass
 
             # no, it isn’t; show a dialog to get the password
-            password = GTKInterface.ask_password(
-                    self, method, key, message, first)
+            password, store = self.password_dialog(
+                    method, key, message, first, True)
             if password is None: return None
 
-            gnomekeyring.item_create_sync(
-                    self.keyring, gnomekeyring.ITEM_GENERIC_SECRET,
-                    display_name, attrs, password, True)
+            if store:
+                gnomekeyring.item_create_sync(
+                        self.keyring, gnomekeyring.ITEM_GENERIC_SECRET,
+                        display_name, attrs, password, True)
+
             return password
 
         except gnomekeyring.DeniedError:

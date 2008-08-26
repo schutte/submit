@@ -40,6 +40,12 @@ class GTKInterface(AbstractInterface):
 
     def ask_password(self, method, key, message, first):
         """Query for a password."""
+        return self.password_dialog(method, key, message, first, False)[0]
+
+    def password_dialog(self, method, key, message, first, saveoption):
+        """Ask the user for his password.  If `saveoption` is true, a checkbox
+        which allows the user to store their password permanently will be
+        added to the interface.  The return value is (`password`, `store`)."""
         dlg = gtk.Dialog(title=self.ask_password_title(method),
                 buttons=(gtk.STOCK_CANCEL,  gtk.RESPONSE_REJECT,
                          gtk.STOCK_OK,      gtk.RESPONSE_ACCEPT))
@@ -58,15 +64,20 @@ class GTKInterface(AbstractInterface):
         entry = gtk.Entry()
         entry.set_visibility(False)
         entry.set_activates_default(True)
-        vbox.pack_end(entry)
+        vbox.pack_start(entry)
+
+        if saveoption:
+            savecheck = gtk.CheckButton(_("Remember password"))
+            vbox.pack_end(savecheck)
+
         dlg.vbox.show_all()
 
         if dlg.run() == gtk.RESPONSE_ACCEPT:
-            result = entry.get_text()
+            password = entry.get_text()
         else:
-            result = None
+            password = None
         dlg.destroy()
-        return result
+        return (password, saveoption and savecheck.get_active())
 
     def stores_passwords(self):
         """This UI cannot store passwords itself."""
