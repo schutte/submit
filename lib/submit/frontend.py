@@ -63,7 +63,7 @@ class Frontend:
             self.fork_daemon()
             self.connect()
 
-        # -bd: start the daemon, if necessary, and test the connection
+        # --daemon: start the daemon, if necessary, and test the connection
         if self.daemon_only:
             if not self.channel:
                 self.fork_daemon()
@@ -88,7 +88,13 @@ class Frontend:
 
     def getopt(self):
         """Parse options."""
+        progname = os.path.basename(sys.argv[0])
         args = sys.argv[1:]
+
+        if progname == "newaliases":
+            self.passthrough("-I")
+        elif progname == "mailq":
+            self.passthrough("-bp")
 
         def get_arg(opt, length=2):
             """Get the option argument out of something like -fuser (remove
@@ -105,7 +111,7 @@ class Frontend:
                 opt = args.pop(0)
                 if opt == "--":
                     break
-                elif opt in ("-bd", "--daemon"):
+                elif opt == "--daemon":
                     self.daemon_only = True
                 elif opt == "--unlock":
                     self.unlock_method = args.pop(0)
@@ -119,15 +125,14 @@ class Frontend:
                     self.period_eof = False
                 elif opt == "-t":
                     self.parse_rcpts = True
-                elif opt == "-q":
-                    sys.exit(0)
-                elif opt in ("-G", "-m", "-n", "-U"):
+                elif opt in ("-G", "-m", "-n", "-U", "-bm"):
                     # ignore these options
                     pass
-                elif opt[:2] in ("-A", "-b", "-F", "-h", "-L", "-N", "-R",
-                        "-X", "-o"):
+                elif opt[:2] in ("-A", "-F", "-h", "-L", "-N", "-R", "-X", "-o"):
                     # ignore these options and their arguments
                     get_arg(opt)
+                elif opt[:2] in ("-b", "-q") or opt == "-I":
+                    self.passthrough()
                 elif opt == "--help":
                     print gettext(self.usage)
                     sys.exit(0)
@@ -145,6 +150,17 @@ class Frontend:
 
         # after “--”, only recipient addresses are left
         self.recipients += args
+
+    def passthrough(self, addarg=None):
+        """Call a mailer daemon’s sendmail program with the given
+        arguments."""
+        from submit.deliverers import sendmail
+        program = sendmail.default_sendmail()
+        # simply succeed if there is no other sendmail
+        if not program: sys.exit(0)
+        args = sys.argv[1:]
+        if addarg: args.insert(0, addarg)
+        os.execl(program, "sendmail", *args)
 
     def setup_ui(self):
         """Find a suitable user interface for password queries and error

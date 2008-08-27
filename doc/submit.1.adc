@@ -23,7 +23,7 @@ use submit(1) wherever sendmail(1) can be used.
 OPTIONS
 -------
 
-*--daemon, -bd*::
+*--daemon*::
 	Fork a daemon process and exit.
 
 *--shutdown*::
@@ -61,11 +61,12 @@ OPTIONS
 IGNORED OPTIONS
 ---------------
 
-The options *-A*, *-b*, *-F*, *-G*, *-h*, *-L*, *-m*, *-n*, *-N*, *-o*,
-*-R*, *-U*, and *-X* are ignored for sendmail(1) compatibility.
+The options *-A*, *-F*, *-G*, *-h*, *-L*, *-m*, *-n*, *-N*, *-o*, *-R*,
+*-U*, and *-X* are ignored for sendmail(1) compatibility.
 
-The option *-q*, which normally flushes the queue of the mailer daemon,
-is a no-op.
+If submit is called with one of the options *-q*, *-I* or *-b*, all
+arguments are passed through to the original sendmail(1) program
+provided by the mailer daemon.
 
 EXIT STATUS
 -----------
