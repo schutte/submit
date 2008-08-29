@@ -17,8 +17,8 @@ DESCRIPTION
 
 submit(1) reads a mail from its standard input and delivers it to the
 given 'RECIPIENTS' (a list of mail addresses).  The interface is
-compatible to that of sendmail(1), meaning that it should be possible to
-use submit(1) wherever sendmail(1) can be used.
+compatible to that of sendmail(8), meaning that it should be possible to
+use submit(1) wherever sendmail(8) can be used.
 
 OPTIONS
 -------
@@ -62,10 +62,10 @@ IGNORED OPTIONS
 ---------------
 
 The options *-A*, *-F*, *-G*, *-h*, *-L*, *-m*, *-n*, *-N*, *-o*, *-R*,
-*-U*, and *-X* are ignored for sendmail(1) compatibility.
+*-U*, and *-X* are ignored for sendmail(8) compatibility.
 
 If submit is called with one of the options *-q*, *-I* or *-b*, all
-arguments are passed through to the original sendmail(1) program
+arguments are passed through to the original sendmail(8) program
 provided by the mailer daemon.
 
 EXIT STATUS
@@ -93,8 +93,8 @@ AUTHOR
 
 Copyright © 2008 Michael Schutte <michi@uiae.at>.
 
-HOMEPAGE
---------
+LINKS
+-----
 
  - Homepage: http://uiae.at/~michi/projects/submit/
  - User’s manual: http://uiae.at/~michi/projects/submit/manual.html

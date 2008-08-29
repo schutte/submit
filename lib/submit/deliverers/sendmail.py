@@ -64,9 +64,9 @@ Deliverer = SendmailDeliverer
 def default_sendmail():
     """Determine the path to the MTA sendmail implementation.  Take into
     account that `submit` itself might be called `sendmail`; in this case,
-    `sendmail.mta` is what we are looking for."""
+    `sendmail.notsubmit` is what we are looking for."""
     dirs = ("/usr/sbin", "/usr/lib")
-    files = ("sendmail.mta", "sendmail")
+    files = ("sendmail.notsubmit", "sendmail")
     for dir in dirs:
         for filename in files:
             filename = os.path.realpath(os.path.join(dir, filename))

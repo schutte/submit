@@ -2,16 +2,18 @@ submit User’s Manual
 ====================
 Michael Schutte <michi@uiae.at>
 
-'submit' is a replacement or supplement implementation of the 'sendmail'
-command line interface for multi-user Unix systems.  It moves the
-configuration of non-local mail delivery away from system administrators
-and towards the individual users while still being able to interface
-with 'sendmail' programs provided by mail transfer agents such as the
-original 'Sendmail', 'Postfix' or 'Exim'.  Notable features are:
+'submit' is a daemon-less mail transfer agent for multi-user Unix
+systems.  In contrast to other MTAs, it moves the configuration of
+non-local mail delivery away from system administrators and towards the
+individual users.  Notable features are:
 
- * Synchronous delivery:  When submit returns successfully, you can be
+ * 'sendmail(8)'-compatible command line interface.
+ * Support for SMTP and Sendmail transports:  'submit' can relay mails
+   through smarthosts as well as interface with other 'sendmail'
+   programs (such as those provided by 'Postfix', 'Exim' or the original
+   'Sendmail').
+ * Synchronous delivery:  When 'submit' returns successfully, you can be
    sure that your mail is out.
- * Supports SMTP and Sendmail transports.
  * SSL/TLS support, including CA- and fingerprint-based validation
    of the server’s identity and certificate-based authentication.
  * Pluggable interfaces (currently GTK+ and TTY) for authentication.
@@ -26,24 +28,24 @@ Introduction
 
 'sendmail' is the traditional approach to e-mail delivery on Unix
 systems like GNU/Linux or BSD.  It is a program, usually located in
-/usr/lib or /usr/sbin, that is called by all sorts of mail clients to
-send messages.  These are usually sent on to a daemon process running on
-the local machine, the so-called “mailer daemon,” which then either
+`/usr/lib` or `/usr/sbin`, that is called by all sorts of mail clients
+to send messages.  These are usually sent on to a daemon process running
+on the local machine, the so-called “mailer daemon,” which then either
 directly stores the messages in a local user’s spool file or passes it
 on to an Internet server for further processing.
 
 While this approach has the advantage of allowing for a central place to
 configure the mail delivery rules for a whole system, it has its
-shortcomings in today’s world.  The most obvious problem is that users
-cannot customize 'sendmail' for themselves:  If they, for example, want
-to use their personal Gmail accounts for sending mails from a corporate
-workstation, there is no way to tell 'sendmail' to do that — this would,
-in fact, require their system administrator to put their password into a
-system configuration file in cleartext.  These users are stuck with
-configuring their mail client to bypass 'sendmail' and directly post
-mails to Gmail’s SMTP server.  If they choose to occasionally use
-another mail client or send mails using command line tools, things can
-get confusing.
+shortcomings in today’s electronic mail environment.  The most obvious
+problem is that users cannot customize 'sendmail' for themselves:  If
+they, for example, want to use their personal Gmail accounts for sending
+mails from a corporate workstation, there is no way to tell 'sendmail'
+to do that—this would, in fact, require their system administrator to
+put their password into a system configuration file in cleartext.  These
+users are stuck with configuring their mail client to bypass 'sendmail'
+and directly post mails to Gmail’s SMTP server.  If they choose to
+occasionally use another mail client or send mails using command line
+tools, things can get redundant and confusing.
 
 'submit' is a 'sendmail'-compatible program which addresses these issues
 by using a per-user approach.  It asks users for their passwords, if
@@ -105,7 +107,7 @@ processes caused by `submit` piping mails to itself over and over.
 Symlinking `sendmail` to `submit` is safe, though:  If 'submit' detects
 that the `sendmail` program it is calling links to something called
 `submit`, it will refrain from using this executable.  Additionally, a
-programm called `sendmail.mta` is checked for before `sendmail` is
+programm called `sendmail.notsubmit` is checked for before `sendmail` is
 tried.  Thus, the preferred procedure to use the `submit` program as
 `sendmail` is:
 
@@ -113,7 +115,7 @@ tried.  Thus, the preferred procedure to use the `submit` program as
    usually either `/usr/lib/sendmail` or `/usr/sbin/sendmail`; one of
    them could be a symlink to the other.  Use `ls -l` to be sure.
 
-2. Rename this `sendmail` file as `sendmail.mta`.
+2. Rename this `sendmail` file as `sendmail.notsubmit`.
 
 3. Recreate the `sendmail` file as a symbolic link to
    `/usr/bin/submit`.  The command for this is `ln -s /usr/bin/submit
@@ -121,16 +123,16 @@ tried.  Thus, the preferred procedure to use the `submit` program as
 
 There is a big problem with this approach.  If your distribution ships
 updates to your mail transfer agent, the package manager will overwrite
-the `sendmail` program instead of `sendmail.mta`.  You will need to take
-care not to upgrade your MTA before reverting the above procedure.  If
-your package management system supports the redirection of files, there
-is an easy way out.  This applies at least to users of 'Debian' and its
-derivatives (like 'Ubuntu'); become `root` and run
+the `sendmail` program instead of `sendmail.notsubmit`.  You will need
+to take care not to upgrade your MTA before reverting the above
+procedure.  If your package management system supports the redirection
+of files, there is an easy way out.  This applies at least to users of
+'Debian' and its derivatives (like 'Ubuntu'); become `root` and run
 
-	# dpkg-divert --divert /usr/sbin/sendmail.mta /usr/sbin/sendmail
+	# dpkg-divert --divert /usr/sbin/sendmail.notsubmit /usr/sbin/sendmail
 
 to tell 'dpkg' to redirect attempts to overwrite `sendmail` to the
-`sendmail.mta` file created before.  Other distributions might offer
+`sendmail.notsubmit` file created before.  Other distributions might offer
 similar mechanisms.
 
 [[getting-started]]
@@ -337,7 +339,7 @@ is checked last and acts as a fallback for all unmatched recipients.
 Sendmail Delivery
 ^^^^^^^^^^^^^^^^^
 
-**program** (string, default: '/usr/{lib,sbin}/sendmail{.mta,}')::
+**program** (string, default: '/usr/{lib,sbin}/sendmail{.notsubmit,}')::
 	Location of the 'sendmail' program.  You can specify something
 	like `ssh example.com /usr/lib/sendmail` here for SMTP-less
 	remote delivery.
@@ -469,7 +471,7 @@ References
  * link:submit.1.html['submit(1)'] manual page and
    http://uiae.at/~michi/projects/submit/[project homepage]
  * Interface of the original
-   http://www.freebsd.org/cgi/man.cgi?query=sendmail&sektion=8:['sendmail']
+   http://www.freebsd.org/cgi/man.cgi?query=sendmail&sektion=8['sendmail(8)']
    implementation
  * Similar projects: http://msmtp.sourceforge.net/[msmtp],
    http://untroubled.org/nullmailer/[nullmailer],
