@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
         name="submit",
@@ -11,7 +11,8 @@ setup(
         url="http://uiae.at/~michi/projects/submit/",
         packages=["submit", "submit.deliverers", "submit.ui"],
         package_dir={"": "lib"},
-        scripts=["submit"]
+        scripts=["submit"],
+        data_files=[]
 )
 
 # vim:sw=4:sts=4:et:

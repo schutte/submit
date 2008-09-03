@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: submit@uiae.at\n"
+"POT-Creation-Date: 2008-09-03 14:26+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../lib/submit/frontend.py:143
+#, python-format
+msgid "Unknown option: \"%(opt)s\"."
+msgstr ""
+
+#: ../lib/submit/frontend.py:150
+#, python-format
+msgid "Option \"%(opt)s\" needs an argument."
+msgstr ""
+
+#: ../lib/submit/frontend.py:318
+msgid ""
+"Mail submission has been cancelled because you have to supply a password, "
+"but\n"
+"there is no way to ask you for it.  This happens, for example, if you run a\n"
+"mail client like Mutt on a console.\n"
+"\n"
+"Please run \"submit --unlock all\" on another virtual terminal and try again."
+msgstr ""
+
+#: ../lib/submit/ui/gtk_ui.py:37
+msgid "Mail delivery problem"
+msgstr ""
+
+#: ../lib/submit/ui/gtk_ui.py:70
+msgid "Remember password"
+msgstr ""
+
+#: ../lib/submit/ui/__init__.py:60
+msgid "Supply credentials for local mail delivery"
+msgstr ""
+
+#: ../lib/submit/ui/__init__.py:62
+msgid "Supply credentials for mail delivery to remote hosts"
+msgstr ""
+
+#: ../lib/submit/ui/__init__.py:64
+#, python-format
+msgid "Supply credentials for mail delivery via \"%(method)s\""
+msgstr ""

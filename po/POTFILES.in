@@ -1,0 +1,10 @@
+lib/submit/auth.py
+lib/submit/config.py
+lib/submit/deliverers/sendmail.py
+lib/submit/deliverers/smtp.py
+lib/submit/deliverers/smtps.py
+lib/submit/frontend.py
+lib/submit/ui/gnome_ui.py
+lib/submit/ui/gtk_ui.py
+lib/submit/ui/__init__.py
+submit

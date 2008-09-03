@@ -70,6 +70,8 @@ If you are not so lucky, please follow these steps.
    comes with all or most of these.
 
    - *Python* (version 2.5 or higher): http://python.org/download/
+   - *setuptools*: http://peak.telecommunity.com/DevCenter/EasyInstall#installation-instructions
+   - *python-distutils-extra*: http://ftp.debian.org/debian/pool/main/p/python-distutils-extra/
    - *pyOpenSSL*: http://pyopenssl.sourceforge.net/
    - *PyGTK*: http://pygtk.org/downloads.html
    - *gnome-python-desktop*: http://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/

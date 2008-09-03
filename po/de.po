@@ -1,0 +1,221 @@
+# submit — sendmail replacement for multi-user desktops
+# Copyright © 2008 Michael Schutte <michi@uiae.at>
+# This file is distributed under the same license as the submit package.
+#
+# Translators:
+# Michael Schutte <michi@uiae.at>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: submit 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-03 11:46+0200\n"
+"PO-Revision-Date: 2008-09-03 10:50+0200\n"
+"Last-Translator: Michael Schutte <michi@uiae.at>\n"
+"Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/submit/auth.py:115
+msgid "Aborted on user request."
+msgstr "Auf Benutzerwunsch abgebrochen."
+
+#: lib/submit/config.py:105
+#, python-format
+msgid "The delivery type \"%(module)s\" is not defined."
+msgstr "Das Auslieferungsverfahren „%(module)s“ ist nicht definiert."
+
+#: lib/submit/deliverers/sendmail.py:40
+msgid "Unable to find sendmail program."
+msgstr "Kann kein „sendmail“-Programm finden."
+
+#: lib/submit/deliverers/sendmail.py:56
+#, python-format
+msgid "\"%(program)s\" failed: %(details)s."
+msgstr "„%(program)s“ fehlgeschlagen: %s."
+
+#: lib/submit/deliverers/sendmail.py:59
+#, python-format
+msgid "\"%(program)s\" failed with unknown error."
+msgstr "„%(program)s“ fehlgeschlagen: Unbekannter Fehler."
+
+#: lib/submit/deliverers/smtp.py:67 lib/submit/deliverers/smtps.py:46
+#, python-format
+msgid "Unable to open connection to %(host)s."
+msgstr "Kann keine Verbindung zu %(host)s aufbauen."
+
+#: lib/submit/deliverers/smtp.py:77 lib/submit/deliverers/smtp.py:233
+#: lib/submit/deliverers/smtps.py:53
+#, python-format
+msgid "Error while talking to %(host)s: %(details)s"
+msgstr "Bei der Kommunikation mit %(host)s ist ein Fehler aufgetreten: %s."
+
+#: lib/submit/deliverers/smtp.py:101
+#, python-format
+msgid "Unable to read CA file: %s."
+msgstr "Kann die CA-Datei nicht lesen: %s."
+
+#: lib/submit/deliverers/smtp.py:110
+msgid "Please specify an SHA-1 fingerprint."
+msgstr "Bitte geben Sie den Fingerabdruck als SHA-1-Hash an."
+
+#: lib/submit/deliverers/smtp.py:126
+msgid "You must specify a certificate if you want to use a private key."
+msgstr ""
+"Sie müssen ein Zertifikat (Option „certificate“) angeben, wenn Sie einen "
+"privaten Schlüssel verwenden wollen."
+
+#: lib/submit/deliverers/smtp.py:131
+#, python-format
+msgid "Unable to read TLS certificate: %(details)s."
+msgstr "Kann Zertifikat nicht lesen: %(details)s."
+
+#: lib/submit/deliverers/smtp.py:143 lib/submit/deliverers/smtps.py:41
+#, python-format
+msgid ""
+"Error while trying to establish an encrypted connection to %(host)s: %"
+"(details)s."
+msgstr ""
+"Kann keine verschlüsselte Verbindung zu %(host)s herstellen: %(details)s."
+
+#: lib/submit/deliverers/smtp.py:155
+#, python-format
+msgid "Unable to read private key file: %(details)s."
+msgstr "Kann geheimen Schlüssel nicht lesen: %(details)s."
+
+#: lib/submit/deliverers/smtp.py:175
+msgid "Please enter the passphrase to your private key: "
+msgstr "Bitte geben Sie die Passphrase zu Ihrem geheimen Schlüssel ein: "
+
+#: lib/submit/deliverers/smtp.py:183
+#, python-format
+msgid "Unable to read TLS private key: %(details)s."
+msgstr "Kann geheimen Schlüssel nicht lesen: %(details)s."
+
+#: lib/submit/deliverers/smtp.py:197
+msgid "Please enter your SMTP password: "
+msgstr "Bitte geben Sie Ihr SMTP-Passwort ein: "
+
+#: lib/submit/deliverers/smtp.py:206
+msgid "Could not find a suitable SMTP authentication mechanism."
+msgstr ""
+"Es steht kein brauchbarer SMTP-Authentifizierungsmechanismus zur Verfügung."
+
+#: lib/submit/deliverers/smtp.py:221
+#, python-format
+msgid "SMTP transmission failed with error code %(code)d: %(details)s."
+msgstr ""
+"Der Mailversand über SMTP ist mit dem Code %(code)d fehlgeschlagen: %"
+"(details)s."
+
+#: lib/submit/frontend.py:143
+#, python-format
+msgid "Unknown option: \"%(opt)s\"."
+msgstr "Unbekannte Option „%(opt)s“."
+
+#: lib/submit/frontend.py:150
+#, python-format
+msgid "Option \"%(opt)s\" needs an argument."
+msgstr "Die Option „%(opt)s“ benötigt ein Argument."
+
+#: lib/submit/frontend.py:318
+msgid ""
+"Mail submission has been cancelled because you have to supply a password, "
+"but\n"
+"there is no way to ask you for it.  This happens, for example, if you run a\n"
+"mail client like Mutt on a console.\n"
+"\n"
+"Please run \"submit --unlock all\" on another virtual terminal and try again."
+msgstr ""
+"Der Mailversand wurde unterbrochen, weil Sie ein Passwort angeben müssten,\n"
+"es aber technisch keine Möglichkeit gibt, Sie danach zu fragen.  Dies "
+"passiert\n"
+"beispielsweise, wenn Sie einen Mailclient wie Mutt auf der Konsole "
+"benutzen.\n"
+"\n"
+"Bitte führen Sie „submit --unlock all“ auf einem anderen virtuellen "
+"Terminal\n"
+"aus und versuchen Sie es erneut."
+
+#: lib/submit/ui/gnome_ui.py:65
+msgid "Unable to access GNOME keyring."
+msgstr "Kann nicht auf den GNOME-Schlüsselbund zugreifen."
+
+#: lib/submit/ui/gtk_ui.py:37
+msgid "Mail delivery problem"
+msgstr "Problem beim Mailversand"
+
+#: lib/submit/ui/gtk_ui.py:70
+msgid "Remember password"
+msgstr "Passwort speichern"
+
+#: lib/submit/ui/__init__.py:60
+msgid "Supply credentials for local mail delivery"
+msgstr "Legitimation für lokalen Mailversand"
+
+#: lib/submit/ui/__init__.py:62
+msgid "Supply credentials for mail delivery to remote hosts"
+msgstr "Legitimation für Mailversand an entfernte Geräte"
+
+#: lib/submit/ui/__init__.py:64
+#, python-format
+msgid "Supply credentials for mail delivery via \"%(method)s\""
+msgstr "Legitimation für Mailversand via „%(method)s“"
+
+#: submit:24
+msgid ""
+"Usage: submit [OPTIONS] [RECIPIENT ...]\n"
+"\n"
+"Deliver the message passed on stdin according to ~/.submit/config.\n"
+"\n"
+"Supported options:\n"
+"    -C PATH         Override the location of the config directory.\n"
+"    --daemon        Only start a daemon process; do not deliver anything.\n"
+"    --shutdown      Terminate the daemon process and exit.\n"
+"    --unlock METHOD Ask for the necessary passwords to send mail using the\n"
+"                    specified METHOD.  \"--unlock all\" unlocks all "
+"methods.\n"
+"                    Do not deliver anything.\n"
+"    -f/-r ADDRESS   Set the envelope sender address.\n"
+"    -i/-oi          Don't treat a line containing nothing but a period as "
+"EOF.\n"
+"    -t              Parse recipient addresses from the message body and add\n"
+"                    them to the list of recipients.\n"
+"    --version       Show the version of submit and exit.\n"
+"    --help          Show this text and exit.\n"
+"\n"
+"There are some additional options which are ignored for sendmail\n"
+"compatibility; see the manual page for the full list.\n"
+"\n"
+"Please report bugs to <submit@uiae.at>."
+msgstr ""
+"Aufruf: submit [OPTIONEN] [EMPFÄNGER ...]\n"
+"\n"
+"Liefere die auf der Standardeingabe übergebene E-Mail gemäß ~/.submit/"
+"config\n"
+"an die angegebenen Empfänger aus.\n"
+"\n"
+"Bekannte Optionen:\n"
+"    -C VERZEICHNIS    Suche am angegebenen Ort nach Konfigurationsdateien.\n"
+"    --daemon          Starte nur einen Hintergrundprozess, nichts "
+"ausliefern.\n"
+"    --shutdown        Beende den Hintergrundprozess.\n"
+"    --unlock METHODE  Frage nach allen notwendigen Passwörtern, um über die\n"
+"                      angegebene METHODE Mails zu versenden.  „--unlock "
+"all“\n"
+"                      entsperrt alle Methoden.\n"
+"    -f/-r ADRESSE     Setze die Envelope-Sender-Adresse.\n"
+"    -i/-oi            Behandle eine Zeile, die nur aus einem Punkt besteht,\n"
+"                      nicht als Ende der zu versendenden Mail.\n"
+"    -t                Suche in der Mail nach zusätzlichen "
+"Empfängeradressen.\n"
+"    --version         Zeige die Versionsnummer von submit.\n"
+"    --help            Zeige diesen Hilfetext.\n"
+"\n"
+"Einige weitere Optionen werden zur Kompatibilität mit „sendmail“ ignoriert.\n"
+"Die Manpage enthält eine vollständige Liste.\n"
+"\n"
+"Bitte berichten Sie Fehler an <submit@uiae.at>."
