@@ -140,12 +140,14 @@ class Frontend:
                     print "submit %s" % SUBMIT_VERSION
                     sys.exit(0)
                 elif opt.startswith("-"):
-                    print >>sys.stderr, _('Unknown option: "%s".') % opt
+                    print >>sys.stderr, _('Unknown option: "%(opt)s".') % \
+                            dict(opt=opt)
                     sys.exit(2)
                 else:
                     self.recipients.append(opt)
         except IndexError:
-            print >>sys.stderr, _('Option "%s" needs an argument.') % opt
+            print >>sys.stderr, \
+                    _('Option "%(opt)s" needs an argument.') % dict(opt=opt)
             sys.exit(2)
 
         # after “--”, only recipient addresses are left

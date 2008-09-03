@@ -39,18 +39,19 @@ class SMTPSDeliverer(SMTPDeliverer):
         except (SSL.Error, crypto.Error), e:
             raise AuthenticationFailedError(
                     n_("Error while trying to establish an encrypted "
-                    "connection to %s: %s."), (self.host, e.message[0][2]))
+                    "connection to %(host)s: %(details)s."),
+                    host=self.host, details=e.message[0][2])
         except (socket.error, IOError, smtplib.SMTPException), e:
             raise AuthenticationFailedError(
-                    n_("Unable to open connection to %s."), host)
+                    n_("Unable to open connection to %(host)s."), host=host)
 
         try:
             self.ehlo()
             self.sasl_auth(auth)
         except (socket.error, smtplib.SMTPException), e:
             raise AuthenticationFailedError(
-                    n_("Error while talking to %s: %s"),
-                    (host, str(e)))
+                    n_("Error while talking to %(host)s: %(details)s"),
+                    host=host, details=str(e))
 
 Deliverer = SMTPSDeliverer
 

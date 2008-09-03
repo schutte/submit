@@ -102,7 +102,8 @@ class Config:
             mod = __import__("submit.deliverers.%s" % modname)
         except ImportError:
             raise ConfigError(
-                    n_('The delivery type "%s" is not defined.'), modname)
+                    n_('The delivery type "%(module)s" is not defined.'),
+                    module=modname)
         mod = getattr(getattr(mod, "deliverers"), modname)
         return mod.Deliverer(self, method)
 

@@ -26,7 +26,7 @@ USAGE = n_(
 Deliver the message passed on stdin according to ~/.submit/config.
 
 Supported options:
-    -C FILE         Override the location of the config directory.
+    -C PATH         Override the location of the config directory.
     --daemon        Only start a daemon process; do not deliver anything.
     --shutdown      Terminate the daemon process and exit.
     --unlock METHOD Ask for the necessary passwords to send mail using the

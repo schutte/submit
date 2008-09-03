@@ -64,7 +64,7 @@ class SMTPDeliverer(AbstractDeliverer):
             self.conn = SMTP(host, port)
         except:
             raise AuthenticationFailedError(
-                    n_("Unable to open connection to %s."), host)
+                    n_("Unable to open connection to %(host)s."), host=host)
 
         try:
             self.ehlo()
@@ -74,8 +74,8 @@ class SMTPDeliverer(AbstractDeliverer):
             self.sasl_auth(auth)
         except (socket.error, smtplib.SMTPException), e:
             raise AuthenticationFailedError(
-                    n_("Error while talking to %s: %s"),
-                    (host, str(e)))
+                    n_("Error while talking to %(host)s: %(details)s"),
+                    host=host, details=str(e))
 
     def ehlo(self):
         """Say hello to the SMTP server."""
@@ -128,7 +128,8 @@ class SMTPDeliverer(AbstractDeliverer):
 
             try: cx.use_certificate_file(c.path(cert))
             except (SSL.Error, IOError), e: raise AuthenticationFailedError(
-                    n_("Unable to read TLS certificate: %s."), str(e))
+                    n_("Unable to read TLS certificate: %(details)s."),
+                    details=str(e))
 
         return cx
 
@@ -140,7 +141,8 @@ class SMTPDeliverer(AbstractDeliverer):
         except (SSL.Error, crypto.Error), e:
             raise AuthenticationFailedError(
                     n_("Error while trying to establish an encrypted "
-                    "connection to %s: %s."), (self.host, e.message[0][2]))
+                    "connection to %(host)s: %(details)s."),
+                    host=self.host, details=e.message[0][2])
         self.ehlo()
 
     def load_private_key(self, auth, key):
@@ -150,7 +152,8 @@ class SMTPDeliverer(AbstractDeliverer):
             source = self.config.file(key).read()
         except IOError, e:
             raise AuthenticationFailedError(
-                    n_("Unable to read private key file: %s."), str(e))
+                    n_("Unable to read private key file: %(details)s."),
+                    details=str(e))
 
         first = True
         pph = ""
@@ -177,7 +180,8 @@ class SMTPDeliverer(AbstractDeliverer):
                 return pkey
 
         raise AuthenticationFailedError(
-                n_("Unable to read TLS private key: %s."), errmsg)
+                n_("Unable to read TLS private key: %(details)s."),
+                details=errmsg)
 
     def sasl_auth(self, auth):
         """Authenticate with user name and password."""
@@ -214,8 +218,8 @@ class SMTPDeliverer(AbstractDeliverer):
         def err(result):
             if 200 <= result[0] < 300: return
             raise DeliveryFailedError(
-                    n_("SMTP transmission failed with error code %d: %s."),
-                    result)
+                    n_("SMTP transmission failed with error code %(code)d: %(details)s."),
+                    code=result[0], details=result[1])
 
         try:
             err(self.conn.mail(message.efrom))
@@ -226,8 +230,8 @@ class SMTPDeliverer(AbstractDeliverer):
 
         except (socket.error, smtplib.SMTPException), e:
             raise DeliveryFailedError(
-                    n_("Error while talking to server: %s"),
-                    str(e))
+                    n_("Error while talking to %(host)s: %(details)s"),
+                    host=self.host, details=str(e))
 
     def close(self):
         """Close the connection."""

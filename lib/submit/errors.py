@@ -12,15 +12,12 @@ class UserError(Exception):
     """An error with an internationalizable message which is of potential
     interest to the user."""
 
-    def __init__(self, message, params = ()):
+    def __init__(self, message, **params):
         """Create a new UserError.  `message` sets the
-        (internationalizable) message text, `params` can be an enumeration of
+        (internationalizable) message text, `params` can be a dictionary of
         additional strings for %-substitution of the translated message."""
         Exception.__init__(self, message)
-        if params is str:
-            self.params = (params, )
-        else:
-            self.params = params
+        self.params = params
 
     def __str__(self):
         return self.message % self.params

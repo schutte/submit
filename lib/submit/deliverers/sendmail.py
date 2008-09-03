@@ -53,11 +53,11 @@ class SendmailDeliverer(AbstractDeliverer):
         if proc.wait() != 0:
             details = proc.stderr.read().strip()
             if details:
-                raise DeliveryFailedError(n_('"%s" failed: %s.'),
-                        (program, details))
+                raise DeliveryFailedError(n_('"%(program)s" failed: %(details)s.'),
+                        program=program, details=details)
             else:
-                raise DeliveryFailedError(n_('"%s" failed with unknown error.'),
-                        program)
+                raise DeliveryFailedError(n_('"%(program)s" failed with unknown error.'),
+                        program=program)
 
 Deliverer = SendmailDeliverer
 

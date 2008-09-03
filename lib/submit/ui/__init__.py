@@ -61,7 +61,8 @@ class AbstractInterface:
         elif method == "remote":
             return _("Supply credentials for mail delivery to remote hosts")
         else:
-            return _('Supply credentials for mail delivery via "%s"') % method
+            return _('Supply credentials for mail delivery via "%(method)s"') % \
+                    dict(method=method)
 
     def stores_passwords(self):
         """Can this interface store passwords itself?  This should return true
