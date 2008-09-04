@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from distutils.core import setup
+from DistUtilsExtra.command import *
 
 setup(
         name="submit",
@@ -12,7 +13,11 @@ setup(
         packages=["submit", "submit.deliverers", "submit.ui"],
         package_dir={"": "lib"},
         scripts=["submit"],
-        data_files=[]
+        data_files=[],
+        cmdclass={
+            "build": build_extra.build_extra,
+            "build_i18n": build_i18n.build_i18n
+        }
 )
 
 # vim:sw=4:sts=4:et:
