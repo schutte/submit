@@ -288,7 +288,7 @@ Global Settings
 
 **socket** (filename, default: '~/.submit/socket')::
 	The file to use for communication between 'submit' and its
-	daemon process.  There shouldn’t be many reasons to change tihs
+	daemon process.  There shouldn’t be many reasons to change this
 	value.
 
 **ui** (string; default: 'gnome, gtk, tty')::
