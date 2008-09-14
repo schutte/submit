@@ -1,3 +1,9 @@
+submit (0.1-2) unstable; urgency=low
+
+  * Update Description: to match README file.
+
+ -- Michael Schutte <m.schutte.jr@gmail.com>  Sun, 14 Sep 2008 15:33:38 +0200
+
 submit (0.1-1) unstable; urgency=low
 
   * First Debian package.
