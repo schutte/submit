@@ -1,0 +1,35 @@
+Source: submit
+Section: mail
+Priority: optional
+Maintainer: Michael Schutte <m.schutte.jr@gmail.com>
+Build-Depends: debhelper (> 7), python, python-distutils-extra
+Build-Depends-Indep: python-support, asciidoc, xsltproc, docbook-xsl
+Standards-Version: 3.8.0
+Homepage: http://uiae.at/~michi/projects/submit/
+Vcs-Git: git://git.debian.org/~michi-guest/submit.git
+Vcs-Browser: http://git.debian.org/?p=users/michi-guest/submit.git
+
+Package: submit
+Architecture: all
+Depends: ${python:Depends}, python-openssl
+Recommends: exim4 | mail-transport-agent
+Suggests: python-gtk2, python-gnome2-desktop
+Description: sendmail program for multi-user systems
+ submit is a replacement or supplement implementation of the sendmail
+ command line interface for multi-user Unix systems.  It moves the
+ configuration of non-local mail delivery away from system
+ administrators and towards the individual users while still being able
+ to interface with sendmail programs provided by mail transfer agents
+ such as the original Sendmail, Postfix or Exim.  Notable features are:
+ .
+  * Synchronous delivery:  When submit returns successfully, you can be
+    sure that your mail is out.
+  * Supports SMTP and Sendmail transports.
+  * SSL/TLS support, including CA- and fingerprint-based validation
+    of the server’s identity and certificate-based authentication.
+  * Pluggable interfaces:  Install python-gtk2 for GTK+ authentication
+    dialogs and python-gnome2-desktop for GNOME Keyring support.
+  * Optional daemon process storing SMTP passwords and passphrases to
+    private keys.
+  * Optional support for different delivery methods depending on the
+    sender address selected in the mail client.

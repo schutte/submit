@@ -1,0 +1,5 @@
+submit (0.1-1) unstable; urgency=low
+
+  * First Debian package.
+
+ -- Michael Schutte <m.schutte.jr@gmail.com>  Sun, 14 Sep 2008 14:27:36 +0200

@@ -1,0 +1,3 @@
+usr/bin/submit			usr/sbin/sendmail
+usr/bin/submit			usr/lib/sendmail
+usr/share/man/man1/submit.1.gz	usr/share/man/man8/sendmail.8.gz

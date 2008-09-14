@@ -1,0 +1,13 @@
+Debian package for submit
+=========================
+
+  * /usr/bin/submit is symlinked to /usr/sbin/sendmail, which means that
+    submit becomes the default sendmail program.  The original
+    /usr/sbin/sendmail is diverted to /usr/sbin/sendmail.notsubmit.
+
+  * If you want to use the Gtk+ interface, make sure that python-gtk2 is
+    installed.  For GNOME Keyring support, also install
+    python-gnome2-desktop.  Future submit packages might be split up if
+    more interfaces become available.
+
+ -- Michael Schutte <m.schutte.jr@gmail.com>  Sun, 14 Sep 2008 13:12:31 +0200

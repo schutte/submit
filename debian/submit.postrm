@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+if [ "$1" = remove ]; then
+	dpkg-divert --package submit --remove --rename \
+		--divert /usr/sbin/sendmail.notsubmit /usr/sbin/sendmail
+	dpkg-divert --package submit --remove --rename \
+		--divert /usr/lib/sendmail.notsubmit /usr/lib/sendmail
+	dpkg-divert --package submit --remove --rename \
+		--divert /usr/share/man/man1/sendmail.notsubmit.1.gz /usr/share/man/man1/sendmail.1.gz
+	dpkg-divert --package submit --remove --rename \
+		--divert /usr/share/man/man8/sendmail.notsubmit.8.gz /usr/share/man/man8/sendmail.8.gz
+fi
+
+#DEBHELPER#
+
+exit 0
