@@ -35,7 +35,7 @@ msgstr "Kann kein „sendmail“-Programm finden."
 #: lib/submit/deliverers/sendmail.py:56
 #, python-format
 msgid "\"%(program)s\" failed: %(details)s."
-msgstr "„%(program)s“ fehlgeschlagen: %s."
+msgstr "„%(program)s“ fehlgeschlagen: %(details)s."
 
 #: lib/submit/deliverers/sendmail.py:59
 #, python-format
