@@ -5,7 +5,7 @@ from DistUtilsExtra.command import *
 
 setup(
         name="submit",
-        version="0.1",
+        version="0.2",
         description="sendmail replacement for multi-user desktops",
         author="Michael Schutte",
         author_email="michi@uiae.at",
