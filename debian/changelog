@@ -1,4 +1,4 @@
-submit (0.2-1) UNRELEASED; urgency=low
+submit (0.2-1) unstable; urgency=low
 
   * New version; fixes a bug where GTK+ dialogs would stay around seemingly
     after the program has terminated.
@@ -6,7 +6,7 @@ submit (0.2-1) UNRELEASED; urgency=low
   * Switch to dh >= 9 and dh_python2.
   * Update debian/copyright to the 1.0 format.
 
- -- Michael Schutte <michi@uiae.at>  Thu, 10 May 2012 21:41:01 +0200
+ -- Michael Schutte <michi@uiae.at>  Thu, 10 May 2012 21:43:05 +0200
 
 submit (0.1-2) unstable; urgency=low
 
