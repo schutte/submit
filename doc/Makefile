@@ -17,7 +17,7 @@ $(MANPAGES_1_HTML): %.html: %.adc
 	asciidoc -d manpage $<
 
 $(MANPAGES_1_GROFF): %: %.adc
-	a2x -f manpage $<
+	a2x --no-xmllint -f manpage $<
 
 clean:
 	rm -f *.html *.1 *.xml
