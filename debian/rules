@@ -1,33 +1,19 @@
 #!/usr/bin/make -f
 
-build: build-stamp
-build-stamp:
-	cp po/submit.pot po/submit.pot.save
-	python setup.py build
-	make -C doc
-	touch build-stamp
+%:
+	dh $@ --with python2
 
-clean:
-	python setup.py clean
+override_dh_auto_build:
+	cp po/submit.pot po/submit.pot.save
+	dh_auto_build
+	make -C doc
+
+override_dh_auto_clean:
 	make -C doc clean
 	find -name '*.pyc' -delete
-	rm -rf build build-stamp
 	-mv po/submit.pot.save po/submit.pot
-	dh clean
+	dh_auto_clean
 
-install: build
-	dh install --until dh_installdirs
-	python setup.py install --root=$(CURDIR)/debian/submit/
-	dh_installdocs README
-	dh install --remaining
+override_dh_auto_install:
+	dh_auto_install
 	sed -i -e '/^# remove this/,/^$$/d' $(CURDIR)/debian/submit/usr/bin/submit
-
-binary-arch: install
-# Nothing to do here
-
-binary-indep: install
-	dh binary-indep
-
-binary: binary-indep
-
-.PHONY: build clean install binary-arch binary-indep binary
