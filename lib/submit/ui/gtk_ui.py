@@ -37,6 +37,8 @@ class GTKInterface(AbstractInterface):
         dlg.set_title(gettext("Mail delivery problem"))
         dlg.run()
         dlg.destroy()
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def ask_password(self, method, key, message, first):
         """Query for a password."""
@@ -77,6 +79,8 @@ class GTKInterface(AbstractInterface):
         else:
             password = None
         dlg.destroy()
+        while gtk.events_pending():
+            gtk.main_iteration()
         return (password, saveoption and savecheck.get_active())
 
     def stores_passwords(self):
