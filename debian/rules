@@ -13,6 +13,7 @@ override_dh_auto_clean:
 	find -name '*.pyc' -delete
 	-mv po/submit.pot.save po/submit.pot
 	dh_auto_clean
+	-rm -rf build
 
 override_dh_auto_install:
 	dh_auto_install
