@@ -3,7 +3,7 @@ submit (0.2-1) UNRELEASED; urgency=low
   * New version; fixes a bug where GTK+ dialogs would stay around seemingly
     after the program has terminated.
 
- -- Michael Schutte <michi@debian.org>  Thu, 10 May 2012 10:49:20 +0200
+ -- Michael Schutte <michi@uiae.at>  Thu, 10 May 2012 10:51:41 +0200
 
 submit (0.1-2) unstable; urgency=low
 

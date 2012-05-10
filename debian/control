@@ -1,13 +1,11 @@
 Source: submit
 Section: mail
 Priority: optional
-Maintainer: Michael Schutte <m.schutte.jr@gmail.com>
+Maintainer: Michael Schutte <michi@uiae.at>
 Build-Depends: debhelper (> 7), python, python-distutils-extra
 Build-Depends-Indep: python-support, asciidoc, xsltproc, docbook-xsl
-Standards-Version: 3.8.0
-Homepage: http://uiae.at/~michi/projects/submit/
-Vcs-Git: git://git.debian.org/~michi-guest/submit.git
-Vcs-Browser: http://git.debian.org/?p=users/michi-guest/submit.git
+Standards-Version: 3.9.3
+Homepage: http://uiae.at/projects/submit/
 
 Package: submit
 Architecture: all
