@@ -10,7 +10,7 @@ X-Python-Version: >= 2.5
 
 Package: submit
 Architecture: all
-Depends: ${python:Depends}, python-openssl
+Depends: python-openssl, ${python:Depends}, ${misc:Depends}
 Recommends: exim4 | mail-transport-agent
 Suggests: python-gtk2, python-gnome2-desktop
 Description: sendmail program for multi-user systems
