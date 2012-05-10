@@ -76,7 +76,7 @@ If you are not so lucky, please follow these steps.
    - *gnome-python-desktop*: http://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/
 
 2. Grab the latest release of 'submit' from
-   http://uiae.at/~michi/projects/submit/[the project homepage] and
+   http://uiae.at/projects/submit/[the project homepage] and
    unpack the tarball somewhere.
 
 3. As `root`, run `python setup.py install`.  This will install the
@@ -470,7 +470,7 @@ References
 ----------
 
  * link:submit.1.html['submit(1)'] manual page and
-   http://uiae.at/~michi/projects/submit/[project homepage]
+   http://uiae.at/projects/submit/[project homepage]
  * Interface of the original
    http://www.freebsd.org/cgi/man.cgi?query=sendmail&sektion=8['sendmail(8)']
    implementation
@@ -482,7 +482,7 @@ References
 Author
 ------
 
-'submit' is Copyright © 2008 http://uiae.at/~michi/[Michael Schutte].
+'submit' is Copyright © 2008 http://uiae.at/[Michael Schutte].
 
 Please write to submit@uiae.at if you have comments or suggestions
 regarding 'submit' itself or this documentation.
