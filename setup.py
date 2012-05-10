@@ -9,7 +9,7 @@ setup(
         description="sendmail replacement for multi-user desktops",
         author="Michael Schutte",
         author_email="michi@uiae.at",
-        url="http://uiae.at/~michi/projects/submit/",
+        url="http://uiae.at/projects/submit/",
         packages=["submit", "submit.deliverers", "submit.ui"],
         package_dir={"": "lib"},
         scripts=["submit"],
